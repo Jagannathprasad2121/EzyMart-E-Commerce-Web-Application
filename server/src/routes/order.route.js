@@ -3,16 +3,12 @@ const protect = require('../middlewares/authMiddleware');
 const admin = require('../middlewares/adminMiddleware');
 
 const {
-    createOrder,
     getOrders,
     getOrderById,
     updateOrderStatus
 } = require('../controllers/orderController');
 
 const router = express.Router();
-
-// Create a new order
-router.post('/', protect, createOrder);
 
 // Get logged-in user's orders
 router.get('/myorders', protect, getOrders);

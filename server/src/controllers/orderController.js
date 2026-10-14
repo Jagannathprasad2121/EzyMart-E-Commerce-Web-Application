@@ -1,69 +1,5 @@
-const Order = require('../models/Order');
-const Address = require('../models/Address');
-
-// @desc    Create a new order
-// @route   POST /api/orders
-// @access  Private
-const createOrder = async (req, res) => {
-    try {
-        const {
-            items,
-            totalAmount,
-            address,
-            paymentId
-        } = req.body;
-
-        // Validate required fields
-        if (!items || !Array.isArray(items) || items.length === 0) {
-            return res.status(400).json({
-                message: 'Order items are required'
-            });
-        }
-
-        if (!address || typeof address !== 'object') {
-            return res.status(400).json({
-                message: 'Address details are required'
-            });
-        }
-
-        // Create address in separate collection
-        const newAddress = await Address.create({
-            user: req.user._id,
-            fullName: address.fullName,
-            phone: address.phone,
-            street: address.street,
-            city: address.city,
-            state: address.state,
-            pincode: address.pincode,
-            country: address.country || 'India'
-        });
-
-        // Create order with address reference
-        const order = await Order.create({
-            user: req.user._id,
-            items,
-            totalAmount,
-            address: newAddress._id,
-            paymentId
-        });
-
-        const populatedOrder = await Order.findById(order._id)
-            .populate('user', 'name email')
-            .populate('items.productId')
-            .populate('address');
-
-        res.status(201).json({
-            success: true,
-            message: 'Order created successfully',
-            order: populatedOrder
-        });
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        });
-    }
-};
-
+const Order = require('../models/order.model');
+const Address = require('../models/address.model');
 
 // @desc    Get logged-in user's orders
 // @route   GET /api/orders/myorders
@@ -193,7 +129,6 @@ const updateOrderStatus = async (req, res) => {
 
 
 module.exports = {
-    createOrder,
     getOrders,
     getOrderById,
     updateOrderStatus
