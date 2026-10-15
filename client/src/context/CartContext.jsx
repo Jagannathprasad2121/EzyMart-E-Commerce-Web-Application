@@ -86,7 +86,14 @@ export const CartProvider = ({ children }) => {
     setItems((currentItems) => currentItems.filter((item) => item.productId !== String(productId)));
   };
 
-  const clearCart = () => setItems([]);
+  const clearCart = () => {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // The in-memory cart is still cleared if browser storage is unavailable.
+    }
+    setItems([]);
+  };
 
   const itemCount = items.reduce((total, item) => total + item.quantity, 0);
   const subtotal = items.reduce((total, item) => total + item.price * item.quantity, 0);

@@ -29,7 +29,7 @@ const Navbar = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const { itemCount } = useCart();
+  const { itemCount, clearCart } = useCart();
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -75,6 +75,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
+    clearCart();
     localStorage.removeItem('token');
     localStorage.removeItem('user');
 

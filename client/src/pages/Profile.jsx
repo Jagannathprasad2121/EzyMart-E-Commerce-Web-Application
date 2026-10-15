@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import { useCart } from '../context/CartContext';
 import '../styles/Profile.css';
 
 const readSavedUser = () => {
@@ -13,6 +14,7 @@ const readSavedUser = () => {
 
 const Profile = () => {
   const navigate = useNavigate();
+  const { clearCart } = useCart();
   const [user, setUser] = useState(readSavedUser);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -56,6 +58,7 @@ const Profile = () => {
     : 'Unavailable';
 
   const handleLogout = () => {
+    clearCart();
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     navigate('/', { replace: true });
