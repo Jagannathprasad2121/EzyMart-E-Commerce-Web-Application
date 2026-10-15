@@ -1,6 +1,13 @@
 const mongoose = require('mongoose');
+const crypto = require('crypto');
 
 const orderSchema = new mongoose.Schema({
+    orderNumber: {
+        type: String,
+        required: true,
+        unique: true,
+        default: () => `EZM-${Date.now().toString(36).toUpperCase()}-${crypto.randomBytes(4).toString('hex').toUpperCase()}`
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
