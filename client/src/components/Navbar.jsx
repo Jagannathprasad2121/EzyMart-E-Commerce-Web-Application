@@ -147,6 +147,12 @@ const Navbar = () => {
             </NavLink>
           )}
 
+          {isLoggedIn && user?.role === 'admin' && (
+            <NavLink to="/admin" onClick={closeMenu}>
+              Admin
+            </NavLink>
+          )}
+
           {isLoggedIn ? (
             <div className="nav-profile">
               <button
