@@ -1,5 +1,5 @@
 const express = require('express')
-const {registerUser, loginUser, getUser, verifyEmail } = require('../controllers/authController')
+const {registerUser, loginUser, getUser, getCurrentUser, verifyEmail } = require('../controllers/authController')
 const protect = require('../middlewares/authMiddleware');
 const admin = require('../middlewares/adminMiddleware')
 
@@ -11,6 +11,8 @@ router.post("/register",registerUser)
 router.post("/login",loginUser)
 /* POST /api/auth/verify-email */
 router.post("/verify-email", verifyEmail)
+/* GET /api/auth/me */
+router.get("/me", protect, getCurrentUser)
 /* GET /api/auth/users */
 router.get("/users", protect, admin, getUser)
 

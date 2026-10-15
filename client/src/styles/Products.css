@@ -1,0 +1,259 @@
+.products-page {
+  min-height: 75vh;
+  background: #fff;
+  color: #171717;
+}
+
+.products-container {
+  width: min(1200px, 88%);
+  margin: 0 auto;
+}
+
+.products-hero {
+  padding: 48px 0 52px;
+  background: #111;
+  color: #fff;
+}
+
+.products-eyebrow {
+  margin: 0 0 10px;
+  color: #ff7900;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.products-hero h1 {
+  margin: 0;
+  font-size: clamp(32px, 5vw, 48px);
+  letter-spacing: -1.5px;
+}
+
+.products-hero p:last-child {
+  max-width: 570px;
+  margin: 12px 0 0;
+  color: #bbb;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.products-content {
+  padding-top: 34px;
+  padding-bottom: 58px;
+}
+
+.products-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 27px;
+  border-bottom: 1px solid #eee;
+}
+
+.products-search {
+  display: flex;
+  width: min(440px, 100%);
+  height: 44px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.products-search:focus-within {
+  border-color: #e66d00;
+  box-shadow: 0 0 0 3px #ff79001a;
+}
+
+.products-search input {
+  width: 100%;
+  min-width: 0;
+  padding: 0 13px;
+  border: 0;
+  outline: 0;
+  color: #222;
+  font: inherit;
+  font-size: 13px;
+}
+
+.products-search button,
+.products-empty button,
+.products-error button {
+  flex-shrink: 0;
+  padding: 0 17px;
+  border: 0;
+  background: #ff7900;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.products-search button:hover,
+.products-empty button:hover,
+.products-error button:hover {
+  background: #e66d00;
+}
+
+.products-filter-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.products-filter-controls select {
+  height: 44px;
+  max-width: 200px;
+  padding: 0 30px 0 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  color: #333;
+  font: inherit;
+  font-size: 12px;
+}
+
+.products-results-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 27px 0 20px;
+}
+
+.products-results-heading h2 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -0.4px;
+}
+
+.products-results-heading p {
+  margin: 5px 0 0;
+  color: #777;
+  font-size: 12px;
+}
+
+.products-clear {
+  border: 0;
+  background: none;
+  color: #bc5700;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.products-message {
+  padding: 45px 20px;
+  color: #666;
+  text-align: center;
+}
+
+.products-error p {
+  margin: 0 0 15px;
+  color: #a23a2e;
+}
+
+.products-error button,
+.products-empty button {
+  min-height: 40px;
+  border-radius: 7px;
+}
+
+.products-empty {
+  padding: 55px 20px 65px;
+  text-align: center;
+}
+
+.products-empty > span {
+  font-size: 38px;
+}
+
+.products-empty h2 {
+  margin: 12px 0 7px;
+  font-size: 21px;
+}
+
+.products-empty p {
+  margin: 0 auto 18px;
+  color: #777;
+  font-size: 13px;
+}
+
+.products-back-home {
+  margin-top: 34px;
+  text-align: center;
+}
+
+.products-back-home a {
+  color: #bd5700;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.products-back-home a:hover {
+  text-decoration: underline;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 900px) {
+  .products-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .products-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 650px) {
+  .products-hero {
+    padding: 38px 0 42px;
+  }
+
+  .products-container {
+    width: 92%;
+  }
+
+  .products-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .products-search {
+    width: 100%;
+  }
+
+  .products-filter-controls select {
+    width: 100%;
+    max-width: none;
+  }
+
+  .products-filter-controls label {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}

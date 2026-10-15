@@ -1,0 +1,149 @@
+
+.footer {
+  background: #080808;
+  color: #d0d0d0;
+  padding: 55px 8% 0;
+  border-top: 3px solid #ff7900;
+}
+
+.footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.2fr;
+  gap: 45px;
+  padding-bottom: 45px;
+}
+
+.footer-logo {
+  display: inline-block;
+  margin-bottom: 15px;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -1px;
+  text-decoration: none;
+}
+
+.footer-logo strong,
+.footer-bottom span {
+  color: #ff7900;
+}
+
+.footer-brand p {
+  max-width: 330px;
+  color: #aaa;
+  font-size: 14px;
+  line-height: 1.9;
+  margin: 0 0 20px;
+}
+
+.footer-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.footer-socials a {
+  color: #ff7900;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.footer-socials a:hover {
+  color: #fff;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.footer-column h3 {
+  color: #fff;
+  font-size: 16px;
+  margin: 5px 0 8px;
+}
+
+.footer-column a {
+  color: #aaa;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-column a:hover {
+  color: #ff7900;
+}
+
+.footer-bottom {
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 65px;
+  border-top: 1px solid #292929;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: #888;
+  font-size: 12px;
+}
+
+.footer-tagline {
+  text-align: right;
+}
+
+@media (max-width: 950px) {
+  .footer-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 35px;
+  }
+}
+
+@media (max-width: 550px) {
+  .footer {
+    padding: 40px 6% 0;
+  }
+
+  .footer-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px 20px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer-brand p {
+    max-width: 100%;
+  }
+
+  .footer-logo {
+    font-size: 27px;
+  }
+
+  .footer-column h3 {
+    font-size: 14px;
+  }
+
+  .footer-column a {
+    font-size: 12px;
+  }
+
+  .footer-bottom {
+    padding: 18px 0;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-tagline {
+    text-align: left;
+  }
+}

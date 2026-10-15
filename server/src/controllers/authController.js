@@ -103,7 +103,8 @@ const loginUser = async (req, res) => {
             user: {
                 _id: (await user)._id,
                 email: (await user).email,
-                name: (await user).name
+                name: (await user).name,
+                role: (await user).role
             },
             token
         })
@@ -126,6 +127,21 @@ const getUser = async (req, res) => {
         })
     }
 }
+
+// Get the currently authenticated user's account details
+const getCurrentUser = async (req, res) => {
+    return res.status(200).json({
+        success: true,
+        user: {
+            _id: req.user._id,
+            name: req.user.name,
+            email: req.user.email,
+            role: req.user.role,
+            verified: req.user.verified,
+            createdAt: req.user.createdAt
+        }
+    });
+};
 // Email verification
 const verifyEmail = async (req, res) => {
     try {
@@ -211,5 +227,6 @@ module.exports = {
     registerUser,
     loginUser,
     getUser,
+    getCurrentUser,
     verifyEmail
 };
