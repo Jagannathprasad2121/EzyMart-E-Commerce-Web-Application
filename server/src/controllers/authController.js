@@ -223,10 +223,89 @@ const verifyEmail = async (req, res) => {
     }
 };
 
+// Request a password reset link. The response is intentionally generic so the
+// endpoint does not reveal whether an email address has an account.
+const requestPasswordReset = async (req, res) => {
+    const normalizedEmail = String(req.body.email || '').trim().toLowerCase();
+
+    if (!normalizedEmail) {
+        return res.status(400).json({ message: 'Email address is required.' });
+    }
+
+    try {
+        const user = await User.findOne({ email: normalizedEmail });
+
+        if (user) {
+            const resetToken = crypto.randomBytes(32).toString('hex');
+            const tokenHash = crypto
+                .createHash('sha256')
+                .update(resetToken)
+                .digest('hex');
+
+            user.passwordResetToken = tokenHash;
+            user.passwordResetExpires = new Date(Date.now() + 60 * 60 * 1000);
+            await user.save();
+
+            const frontendUrl = (process.env.CLIENT_URL || 'http://localhost:5173').replace(/\/$/, '');
+            const resetUrl = `${frontendUrl}/reset-password?token=${resetToken}`;
+            await sendMail(
+                user.email,
+                'Reset Your EzyMart Password',
+                `We received a request to reset your EzyMart password.\n\nUse this link within one hour to choose a new password:\n${resetUrl}\n\nIf you did not request this, you can ignore this email.`
+            );
+        }
+
+        return res.status(200).json({
+            message: 'If an account exists for that email, a password reset link has been sent.'
+        });
+    } catch (error) {
+        console.error('Request password reset error:', error);
+        return res.status(500).json({ message: 'Unable to send a reset email right now. Please try again later.' });
+    }
+};
+
+const resetPassword = async (req, res) => {
+    const { token, password } = req.body;
+
+    if (!token || typeof password !== 'string' || password.length < 6) {
+        return res.status(400).json({
+            message: 'A valid reset link and a password of at least 6 characters are required.'
+        });
+    }
+
+    try {
+        const tokenHash = crypto
+            .createHash('sha256')
+            .update(token)
+            .digest('hex');
+
+        const user = await User.findOne({
+            passwordResetToken: tokenHash,
+            passwordResetExpires: { $gt: new Date() }
+        }).select('+passwordResetToken +passwordResetExpires +password');
+
+        if (!user) {
+            return res.status(400).json({ message: 'This password reset link is invalid or expired. Request a new one.' });
+        }
+
+        user.password = password;
+        user.passwordResetToken = undefined;
+        user.passwordResetExpires = undefined;
+        await user.save();
+
+        return res.status(200).json({ message: 'Your password has been reset. You can now sign in.' });
+    } catch (error) {
+        console.error('Reset password error:', error);
+        return res.status(500).json({ message: 'Unable to reset your password right now. Please try again.' });
+    }
+};
+
 module.exports = {
     registerUser,
     loginUser,
     getUser,
     getCurrentUser,
-    verifyEmail
+    verifyEmail,
+    requestPasswordReset,
+    resetPassword
 };
