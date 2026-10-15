@@ -18,6 +18,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import MyOrders from './pages/MyOrders';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminRoute from './components/AdminRoute';
+import { Contact, FAQ, Privacy, Terms } from './pages/Support';
 
 
 
@@ -39,6 +40,10 @@ function App() {
           <Route path="/myorders" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
           <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
           <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
         </Routes>
 
         <Footer />
