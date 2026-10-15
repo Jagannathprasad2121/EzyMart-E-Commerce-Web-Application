@@ -2,6 +2,8 @@
 
 EzyMart is a full-stack e-commerce web application built using the MERN stack.
 
+**Live Demo:** [https://ezymart-frontend.onrender.com](https://ezymart-frontend.onrender.com)
+
 The application allows users to browse products, securely authenticate, manage their shopping cart, place orders, and make online payments through Razorpay. Product images are managed using Cloudinary.
 
 ## 🚀 Features
